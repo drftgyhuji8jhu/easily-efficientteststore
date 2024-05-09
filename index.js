@@ -1,26 +1,11 @@
-function letterCombinations(digits) {
-  if (digits.length === 0) return [];
-  const map = {
-    2: "abc",
-    3: "def",
-    4: "ghi",
-    5: "jkl",
-    6: "mno",
-    7: "pqrs",
-    8: "tuv",
-    9: "wxyz",
-  };
-  const result = [];
-  backtrack("", digits);
-  return result;
-  function backtrack(combination, nextDigits) {
-    if (nextDigits.length === 0) result.push(combination);
-    else {
-      const digit = nextDigits.substring(0, 1);
-      const letters = map[digit];
-      for (const letter of letters) {
-        backtrack(combination + letter, nextDigits.substring(1));
-      }
+function minMeetingRooms(intervals) {
+  intervals.sort((a, b) => a[0] - b[0]);
+  const minHeap = new MinHeap();
+  for (const interval of intervals) {
+    if (minHeap.size() > 0 && minHeap.peek() <= interval[0]) {
+      minHeap.pop();
     }
+    minHeap.push(interval[1]);
   }
+  return minHeap.size();
 }
