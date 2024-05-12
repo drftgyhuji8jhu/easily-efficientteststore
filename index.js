@@ -1,11 +1,28 @@
-function isValidBST(root) {
-  return isValid(root, null, null);
-}
-function isValid(node, min, max) {
-  if (!node) return true;
-  if ((min !== null && node.val <= min) || (max !== null && node.val >= max))
-    return false;
-  return (
-    isValid(node.left, min, node.val) && isValid(node.right, node.val, max)
-  );
+function reorderList(head) {
+  if (!head || !head.next) return;
+  let slow = head;
+  let fast = head;
+  while (fast.next && fast.next.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  let prev = null;
+  let curr = slow.next;
+  slow.next = null;
+  while (curr) {
+    const next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  let first = head;
+  let second = prev;
+  while (second.next) {
+    const next = first.next;
+    first.next = second;
+    first = next;
+    const next2 = second.next;
+    second.next = first;
+    second = next2;
+  }
 }
