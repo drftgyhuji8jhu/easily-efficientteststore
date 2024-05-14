@@ -1,14 +1,22 @@
-function subarraySum(nums, k) {
-  const map = new Map();
-  map.set(0, 1);
-  let count = 0;
-  let sum = 0;
-  for (const num of nums) {
-    sum += num;
-    if (map.has(sum - k)) {
-      count += map.get(sum - k);
-    }
-    map.set(sum, (map.get(sum) || 0) + 1);
+function shuffle(array) {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there are elements remaining
+  while (currentIndex !== 0) {
+    // Pick a remaining element
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // Swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
   }
-  return count;
+
+  return array;
 }
+
+const shuffledDeck = shuffle([1, 2, 3, 4, 5]);
+console.log(shuffledDeck);
